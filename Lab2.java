@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 public class Lab2 {
   public static void main(String[] args) {
+    // fixed first syntanx error.
     final String[] MONTHS = { "January", "February", "March", "April",
         "May", "June", "July", "August",
         "September", "October", "November",
@@ -16,7 +17,8 @@ public class Lab2 {
     String myMonth;
 
     System.out.print("Please enter the year: ");
-    myYear = -sc.nextInt();
+    // fixed second syntanx error.
+    myYear = sc.nextInt();
 
     a = myYear % 19;
     b = myYear / 100;
