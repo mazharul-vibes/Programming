@@ -36,8 +36,8 @@ public class Lab2 {
     mon = (h + l - 7 * m + 114) / 31;
     myMonth = MONTHS[mon - 1];
     myDay = ((h + l - 7 * m + 114) % 31) + 1;
-
-    System.out.println("Easter Sunday in " + myDay + " is/was " +
+    // fixed third syntanx error.
+    System.out.println("Easter Sunday in " + myYear + " is/was " +
         myMonth + " " + myDay);
 
     sc.close();
