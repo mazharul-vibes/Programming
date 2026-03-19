@@ -81,20 +81,24 @@ public class StickyNotePad {
      * notes then don't do anything.
      */
     public void deleteNote() {
-        // if the note pad isn't empty...
-if (!isEmpty()) {
-        // use a for loop to overwrite elements from current element up with the one
-        // after
-for (int i = currentIndex; i < currentSize - 1; i++) {
+        if (!isEmpty()) {
+            // Shift elements to overwrite the current note
+            for (int i = currentIndex; i < currentSize - 1; i++) {
                 pad[i] = pad[i + 1];
             }
-        // decrement count of used portion of array
 
-        // if note pad is now empty then reset currentIndex to 0
+            // Decrement count of used portion of array
+            currentSize--;
 
-        // otherwise if currentIndex is beyond the used portion, make it the index of
-        // the last note
-
+            // If note pad is now empty, reset index to 0
+            if (isEmpty()) {
+                currentIndex = 0;
+            }
+            // If the deleted note was the last one, move index back to the new last note
+            else if (currentIndex >= currentSize) {
+                currentIndex = currentSize - 1;
+            }
+        }
     }
 
     /**
@@ -108,15 +112,16 @@ for (int i = currentIndex; i < currentSize - 1; i++) {
     public String getNote() {
         String ans;
 
-        // is the sticky note pad empty?
-        // yes: answer is ""
+        if (isEmpty()) {
+            ans = "";
+        } else {
+            // NOTE x OF y.\n\n plus contents.
+            // We use (currentIndex + 1) because arrays are 0-indexed but users expect
+            // 1-indexed.
+            ans = "NOTE " + (currentIndex + 1) + " OF " + currentSize + ".\n\n" + pad[currentIndex];
+        }
 
-        // no: answer is "NOTE x OF y.\n\n" plus contents of current note
-
-    }
-
-    // return answer
-
+        return ans;
     }
 
     /**
@@ -125,10 +130,19 @@ for (int i = currentIndex; i < currentSize - 1; i++) {
      * at last note).
      */
     public void nextNote() {
-        // increment current note index
+        // Increment current note index
+        currentIndex++;
 
-        // readjust current index to end of used portion if necessary
+        // Readjust current index to end of used portion (last valid index is
+        // currentSize - 1)
+        if (currentIndex >= currentSize) {
+            currentIndex = currentSize - 1;
+        }
 
+        // Safety check for empty pad
+        if (currentIndex < 0) {
+            currentIndex = 0;
+        }
     }
 
     /**
